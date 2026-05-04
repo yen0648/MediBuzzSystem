@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinic Records</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial;
+    background: #f5f5f5;
+    padding: 15px;
+    margin: 0;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #007bff;
+}
+
+/* BUTTONS */
+.divbtn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+button {
+    padding: 12px 18px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.btninv {
+    background-color: #2469b3;
+    color: yellow;
+}
+
+/* =========================
+   💻 TABLE (DESKTOP)
+========================= */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+
+/* =========================
+   📱 MOBILE CARDS
+========================= */
+.cards {
+    display: none;
+}
+
+.card {
+    background: #e6f0ff;
+    border: 2px solid #007bff;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.value {
+    font-size: 20px;
+    color: #222;
+}
+
+/* 📱 SWITCH LAYOUT */
+@media (max-width: 600px) {
+
+    .table-container {
+        display: none; /* hide table */
+    }
+
+    .cards {
+        display: block; /* show cards */
+    }
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-btn">←</a>
+
+<br><br>
+
+<h2 style="font-size:28px; text-align:center;">Clinic Records</h2>
+
+<p style="font-size:18px; text-align:center;">
+STEP 2: You MUST clear all records before going to inventory.
+</p>
+
+<div class="divbtn">
+    <button onclick="clearData()">Clear All</button>
+    <button onclick="goToInventory()" class="btninv">Inventory</button>
+</div>
+
+<!-- 💻 TABLE VIEW -->
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Section</th>
+                <th>Reason</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<!-- 📱 CARD VIEW -->
+<div class="cards" id="cardContainer"></div>
+
+<script>
+
+if (localStorage.getItem("step1") !== "done") {
+    window.location.href = "index.html";
+}
+
+function loadData() {
+    const records = JSON.parse(localStorage.getItem("clinicRecords")) || [];
+
+    const tableBody = document.getElementById("tableBody");
+    const cardContainer = document.getElementById("cardContainer");
+
+    tableBody.innerHTML = "";
+    cardContainer.innerHTML = "";
+
+    records.forEach(r => {
+
+        // 💻 TABLE ROW
+        tableBody.innerHTML += `
+            <tr>
+                <td>${r.studentId}</td>
+                <td>${r.name}</td>
+                <td>${r.section}</td>
+                <td>${r.reason}</td>
+                <td>${r.phone}</td>
+            </tr>
+        `;
+
+        // 📱 CARD
+        cardContainer.innerHTML += `
+            <div class="card">
+                <div><span class="label">Student ID:</span> <span class="value">${r.studentId}</span></div>
+                <div><span class="label">Name:</span> <span class="value">${r.name}</span></div>
+                <div><span class="label">Section:</span> <span class="value">${r.section}</span></div>
+                <div><span class="label">Reason:</span> <span class="value">${r.reason}</span></div>
+                <div><span class="label">Phone:</span> <span class="value">${r.phone}</span></div>
+            </div>
+        `;
+    });
+}
+
+function clearData() {
+    const records = JSON.parse(localStorage.getItem("clinicRecords")) || [];
+
+    if (records.length === 0) {
+        alert("No records to clear!");
+        return;
+    }
+
+    localStorage.removeItem("clinicRecords");
+    localStorage.setItem("step2", "done");
+
+    loadData();
+    alert("Records Cleared! Inventory Unlocked.");
+}
+
+function goToInventory() {
+    const records = JSON.parse(localStorage.getItem("clinicRecords")) || [];
+
+    if (records.length > 0) {
+        alert("You must CLEAR ALL records before going to Inventory!");
+        return;
+    }
+
+    if (localStorage.getItem("step2") !== "done") {
+        alert("Complete Step 2 first!");
+        return;
+    }
+
+    window.location.href = "inventory.html";
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
