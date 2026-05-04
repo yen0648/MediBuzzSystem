@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediBuzz Preview</title>
+
+<style>
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #fcfcfc;
+    font-family: Arial;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 🧭 NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 20px;
+    z-index: 10;
+
+    background: rgba(56, 122, 246, 0.4);
+    backdrop-filter: blur(5px);
+}
+
+/* LOGO */
+.nav-left img {
+    height: 45px;
+}
+
+/* BUTTONS */
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-right button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn1 {
+    background: #007bff;
+    color: white;
+}
+
+.btn2 {
+    background: white;  
+    color: #007bff;
+}
+
+/* 📌 TITLE */
+.title {
+    text-align: center;
+    margin-top: 110px;
+    font-size: 50px;
+    font-weight: bold;
+    color: #2960ae;
+}
+
+/* 🌄 HERO */
+.hero {
+    width: 90%;
+    max-width: 1100px;
+    height: 450px;
+
+    margin: 20px auto;
+
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* SLIDES */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.active {
+    opacity: 1;
+}
+
+/* 📦 FEATURES */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    margin: 60px auto;
+    max-width: 1100px;
+}
+
+.feature-box {
+    width: 300px;
+    padding: 20px;
+
+    border: 2px solid #007bff;
+    border-radius: 12px;
+    background: white;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.feature-box h2 {
+    color: #316bd0;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.feature-box p {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* 📌 WHY SECTION */
+.why-section {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 30px;
+
+    text-align: center;
+    background: white;
+
+    border-left: 6px solid #007bff;
+    border-radius: 10px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.why-section h1 {
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.why-section p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* 📌 FOOTER */
+.footer {
+    background: #0d2a6b;
+    color: white;
+    text-align: center;
+
+    padding: 40px 20px;
+    margin-top: 80px;
+}
+
+.footer-content h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.footer-content p {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.footer-content a {
+    display: block;
+    color: #aad4ff;
+    text-decoration: none;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #cbd6ff;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 600px) {
+
+    .hero {
+        width: 95%;
+        height: 250px;
+    }
+
+    .title {
+        font-size: 22px;
+        margin-top: 100px;
+    }
+
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .why-section {
+        margin: 40px 15px;
+        padding: 20px;
+    }
+
+    .why-section h1 {
+        font-size: 22px;
+    }
+
+    .why-section p {
+        font-size: 15px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🧭 NAVBAR -->
+<div class="navbar">
+
+    <div class="nav-left">
+        <img src="image-removebg-preview (4).png" alt="Logo">
+    </div>
+
+    <div class="nav-right">
+        <button class="btn1" onclick="goToLogin()">Login</button>
+        <button class="btn2" onclick="scrollToWhy()">About</button>
+    </div>
+
+</div>
+
+<!-- 📌 TITLE -->
+<h1 class="title">PREVIEW OF OUR SYSTEM</h1>
+
+<!-- 🌄 HERO -->
+<div class="hero">
+    <img class="slide active" src="medibuzzdashboard.jpg">
+    <img class="slide" src="medibuzzlogin.jpg">
+</div>
+
+<!-- 📦 FEATURES -->
+<div class="features">
+
+    <div class="feature-box">
+        <h2>Medicine Inventory</h2>
+        <p>Tracks and manages clinic medicines efficiently.</p>
+    </div>
+
+    <div class="feature-box">
+        <h2>Nurse Verification</h2>
+        <p>Ensures safe validation of student records.</p>
+    </div>
+
+    <div class="feature-box">
+        <h2>Automatic Logging</h2>
+        <p>Records all clinic visits automatically.</p>
+    </div>
+
+    <div class="feature-box">
+        <h2>SMS Notification</h2>
+        <p>Sends updates to parents instantly.</p>
+    </div>
+
+    <div class="feature-box">
+        <h2>Real-Time Bed Monitoring</h2>
+        <p>Tracks clinic bed availability live.</p>
+    </div>
+
+    <div class="feature-box">
+        <h2>Printable Reports</h2>
+        <p>Generates clinic reports for printing.</p>
+    </div>
+
+</div>
+
+<!-- 📌 WHY SECTION -->
+<div class="why-section" id="why">
+
+    <h1>WHY WE CREATED THIS SYSTEM</h1>
+
+    <p>
+        We created this system to improve school clinic operations and reduce manual errors.
+    </p>
+
+    <p>
+        It provides a faster, organized, and digital way of managing clinic records and communication.
+    </p>
+
+</div>
+
+<!-- 📌 FOOTER -->
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <h3>MediBuzz System</h3>
+
+        <p>Follow us on Facebook</p>
+        <a href="#">facebook.com/medibuzz</a>
+
+        <p>Email us</p>
+        <a href="mailto:medibuzzsystem@gmail.com">medibuzzsystem@gmail.com</a>
+
+        <p class="copyright">
+            © MediBuzz System 2025 All Rights Reserved
+        </p>
+
+    </div>
+
+</footer>
+
+<script>
+
+let index = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showNextSlide() {
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+}
+
+setInterval(showNextSlide, 9000);
+
+// SCROLL TO WHY
+function scrollToWhy() {
+    document.getElementById("why").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+// LOGIN REDIRECT
+function goToLogin() {
+    window.location.href = "loginpage.html"; 
+}
+
+</script>
+
+</body>
+</html>
